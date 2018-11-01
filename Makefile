@@ -4,7 +4,8 @@ NAME = BSQ
 
 SRCS =	src/main.c \
 		src/string.c \
-		src/map.c
+		src/map.c \
+		src/fill_array.c
 
 OBJS = $(SRC:.c=.o)
 
