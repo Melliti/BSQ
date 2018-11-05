@@ -10,13 +10,15 @@ char *file_info(int *i, FILE *file) {
         ++*i;
     return line;
 }
+
 int *init_map(int idx, int *map, int length) {
     int i = 0;
     
     if (idx == 0)
     {
-        while (i < length)
+        while (i <= length)
             map[i++] = 1;
+        print_line(map, length);
     }
     else
         map[0] = 1;
@@ -34,18 +36,18 @@ int extact_map(char *map)
     if (file == NULL)
         my_puterr("file does not exist");
     line = file_info(&nb_lines, file);
-    tab = malloc(sizeof(int) * nb_lines + 2);
-    printf("[] %d\n", nb_lines);
+    tab = malloc(sizeof(int *) * (nb_lines + 2));
+    //printf("[] %d\n", nb_lines);
     int size = my_strlen(line);
     while (it <= nb_lines)
     {
-        printf("%d\n", it);
-        tab[it] = malloc(sizeof(int) * size + 1);
-        init_map(it, tab[it], size);
+        //printf("%d\n", it);
+        tab[it] = malloc(sizeof(int) * (size + 2));
+        tab[it] = init_map(it, tab[it], size);
         it++;
     }
     tab[nb_lines + 1] = NULL;
     free(line);
-    fill_array(file, tab, size);
+    fill_array(map, tab, size);
     fclose(file);
 }

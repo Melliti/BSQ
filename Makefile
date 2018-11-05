@@ -14,7 +14,7 @@ FLAGS = -Iincludes
 all: $(NAME)
 
 $(NAME): $(OBJS)
-	$(CC) -o $(NAME) $(SRCS) $(FLAGS)
+	$(CC) -o $(NAME) $(SRCS) $(FLAGS) -g3
 	
 clean:
 	rm $(OBJS)
