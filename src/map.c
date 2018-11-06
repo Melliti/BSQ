@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "string.h"
+#include "map.h"
 
 char *file_info(int *i, FILE *file) {
     size_t len = 0;
@@ -17,14 +18,14 @@ int *init_map(int idx, int *map, int length) {
     if (idx == 0)
     {
         while (i <= length)
-            map[i++] = 1;
-        print_line(map, length);
+            map[i++] = 0;
     }
     else
-        map[0] = 1;
+        map[0] = 0;
     return map;
 }
-int extact_map(char *map)
+
+void extact_map(char *map)
 {
     int nb_lines = 0;
     int it = 0;
@@ -32,22 +33,19 @@ int extact_map(char *map)
     char *line = NULL;
     FILE *file;
     
-    file = fopen(map, "r");
-    if (file == NULL)
+    if ((file = fopen(map, "r")) == NULL)
         my_puterr("file does not exist");
     line = file_info(&nb_lines, file);
     tab = malloc(sizeof(int *) * (nb_lines + 2));
-    //printf("[] %d\n", nb_lines);
     int size = my_strlen(line);
     while (it <= nb_lines)
     {
-        //printf("%d\n", it);
         tab[it] = malloc(sizeof(int) * (size + 2));
         tab[it] = init_map(it, tab[it], size);
         it++;
     }
     tab[nb_lines + 1] = NULL;
     free(line);
-    fill_array(map, tab, size);
     fclose(file);
+    solver(fill_array(map, tab, size), nb_lines, size);
 }

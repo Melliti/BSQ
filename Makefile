@@ -5,16 +5,17 @@ NAME = BSQ
 SRCS =	src/main.c \
 		src/string.c \
 		src/map.c \
-		src/fill_array.c
+		src/fill_array.c \
+		src/solve.c
 
-OBJS = $(SRC:.c=.o)
+OBJS = $(SRCS:.c=.o)
 
-FLAGS = -Iincludes
+CFLAGS = -Wall -Iincludes -g3
 
 all: $(NAME)
 
 $(NAME): $(OBJS)
-	$(CC) -o $(NAME) $(SRCS) $(FLAGS) -g3
+	$(CC) -o $(NAME) $(OBJS) $(CFLAGS)
 	
 clean:
 	rm $(OBJS)

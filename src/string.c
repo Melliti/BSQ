@@ -1,6 +1,18 @@
 #include <stdio.h>
 #include <unistd.h>
 #include <stdlib.h> 
+#include "string.h"
+
+int my_puterr(char *str)
+{
+    if (str == NULL)
+    {
+        my_puterr("[MY_PUTERR ERR] Null string\n");
+        return 84;
+    }
+    write(STDERR_FILENO, str, my_strlen(str));
+    exit(EXIT_FAILURE);
+}
 
 int my_strlen(char *str)
 {
@@ -14,20 +26,9 @@ int my_strlen(char *str)
     while (*str)
     {
         ++i;
-        *str++;
+        (void) *(str++);
     }
     return i;
-}
-
-int my_puterr(char *str)
-{
-    if (str == NULL)
-    {
-        my_puterr("[MY_PUTERR ERR] Null string\n");
-        return 84;
-    }
-    int i = write(STDERR_FILENO, str, my_strlen(str));
-    exit(EXIT_FAILURE);
 }
 
 int my_putstr(char *str)
