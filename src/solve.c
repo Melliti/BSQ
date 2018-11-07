@@ -19,6 +19,50 @@ int lower_value(int minusX, int minusY, int minusXY)
     return (i + 1);
 }
 
+void neg(int **tab, int y, int x, int length)
+{
+    int tmp = x;
+    int limit_y = y - tab[y][x];
+    int limit_x = x - tab[y][x];
+    
+    while (y >= limit_y)
+    {
+        while (tmp != limit_x)
+        {
+            tab[y][tmp] = -1;
+            tmp--;
+        }
+        print_line(tab[y], length);
+        tmp = x;
+        y--;
+    }
+}
+
+void find_higher(int **tab, int size, int length)
+{
+    int i = 0;
+    int tmp;
+    int hx;
+    int hy;
+ 
+    while (size >= 0)
+    {
+        tmp = length;
+        while (tmp >= 0)
+        {
+            if (i <= tab[size][tmp])
+            {
+                i = tab[size][tmp];
+                hx = tmp;
+                hy = size;
+            }
+            tmp--;
+        }
+        size--;
+    }
+    neg(tab, hy, hx, length);
+}
+
 void solver(int **tab, int size, int length)
 {
     int y = 1;
@@ -27,7 +71,7 @@ void solver(int **tab, int size, int length)
     
     map = malloc(sizeof(char *) * (size + 1));
     map[size] = NULL;
-    while (y != size)
+    while (y <= size)
     {
         map[y] = malloc(sizeof(char) * (length + 1));
         map[y][length] = '\0';
@@ -38,7 +82,8 @@ void solver(int **tab, int size, int length)
             x++;
         }
         x = 0;
-        print_line(tab[y], length);
+        //print_line(tab[y], length);
         y++;
     }
+    find_higher(tab, size, length);
 }
