@@ -22,6 +22,7 @@ int my_strlen(char *str)
         return 84;
     }
     int i = 0;
+    
     while (*str)
     {
         ++i;
